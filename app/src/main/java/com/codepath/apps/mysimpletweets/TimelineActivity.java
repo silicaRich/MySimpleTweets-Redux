@@ -44,6 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("DEBUG", json.toString());
                 // ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
                 aTweets.addAll(Tweet.fromJSONArray(json));
+                Log.d("DEBUG", aTweets.toString());
 
             }
 

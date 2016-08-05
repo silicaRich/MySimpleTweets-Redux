@@ -15,8 +15,11 @@ public class Tweet {
     // attributes
     private String body;
     private long uid;
+
     private User user;
     private String createdAt;
+
+    public User getUser() { return user; }
 
     public String getBody() {
         return body;
@@ -29,6 +32,8 @@ public class Tweet {
     public String getCreatedAt() {
         return createdAt;
     }
+
+
 
     // Deserialize the JSON and build Tweet Objects
     public static Tweet fromJSON(JSONObject jsonObject){
