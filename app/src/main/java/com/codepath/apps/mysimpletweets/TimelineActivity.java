@@ -31,7 +31,17 @@ public class TimelineActivity extends AppCompatActivity {
         // Construct Adapter from data source
         aTweets = new TweetsArrayAdapter(this, tweets);
         lvTweets.setAdapter(aTweets);
+
         client = TwitterApplication.getRestClient();
+
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                populateTimeline();
+                return true; // ONLY if more data is actually being loaded; false otherwise.
+            }
+        });
+
         populateTimeline();
 
     }
