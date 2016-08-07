@@ -1,6 +1,7 @@
 package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,17 @@ import java.util.List;
 
 // Take Tweet objects and turn them into Views to be displayed in ListView
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
+    Typeface helvetica;
 
     public TweetsArrayAdapter(Context context, List<Tweet> tweets){
         super(context, 0, tweets);
+        helvetica = Typeface.createFromAsset(context.getAssets(), "fonts/HelveticaNeue_Med.ttf");
 
     }
     // Instead of simple_list_item_1, using 0 as paramater and set up custom template.
     public View getView(int position, View convertView, ViewGroup parent){
+
+
         // 1. Get the tweet
         Tweet tweet = getItem(position);
         // 2. Find or inflate the template
@@ -36,6 +41,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
         TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
         TextView tvBody = (TextView) convertView.findViewById(R.id.tvBody);
+        // tvBody.setTypeface(helvetica);
         TextView tvCreatedAt = (TextView) convertView.findViewById(R.id.tvCreatedAt);
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
         TextView tvFavouritesCount = (TextView) convertView.findViewById(R.id.tvFavouritesCount);
