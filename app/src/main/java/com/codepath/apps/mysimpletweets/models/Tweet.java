@@ -1,10 +1,15 @@
 package com.codepath.apps.mysimpletweets.models;
 
+import android.text.format.DateUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by floko_000 on 8/4/2016.
@@ -18,6 +23,7 @@ public class Tweet {
 
     private User user;
     private String createdAt;
+    private String favouritesCount;
 
     public User getUser() { return user; }
 
@@ -33,6 +39,10 @@ public class Tweet {
         return createdAt;
     }
 
+    public String getFavouritesCount() {
+        return favouritesCount;
+    }
+
 
 
     // Deserialize the JSON and build Tweet Objects
@@ -42,8 +52,9 @@ public class Tweet {
         try {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
-            tweet.createdAt = jsonObject.getString("created_at");
+            tweet.createdAt = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+            tweet.favouritesCount = jsonObject.getString("favorite_count");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,6 +83,25 @@ public class Tweet {
 
 
         return tweets;
+    }
+
+
+    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
+    public String getRelativeTimeAgo(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String relativeDate = "";
+        try {
+            long dateMillis = sf.parse(rawJsonDate).getTime();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return relativeDate;
     }
 
 
