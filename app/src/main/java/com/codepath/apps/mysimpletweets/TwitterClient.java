@@ -5,9 +5,12 @@ import org.scribe.builder.api.FlickrApi;
 import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -20,11 +23,12 @@ import com.loopj.android.http.RequestParams;
  * Add methods for each relevant endpoint in the API.
  * 
  */
+
 public class TwitterClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
 	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
-	public static final String REST_CONSUMER_KEY = "2dHXmNNjVJi7A2tfW9noxc3na";       // Change this
-	public static final String REST_CONSUMER_SECRET = "eNjg2rn3bPFsKtdrIqHV4sEDMnGq2qlYhMOWkKGaXHNYxCQrtc"; // Change this
+	public static final String REST_CONSUMER_KEY = "RPiBcVxVoeNFzwe1i7VQihqb9";       // Change this
+	public static final String REST_CONSUMER_SECRET = "vecARvRVEVJtUqktoFfdIvJ4zrImwttkKJt5VmyMv0Q2uJLOWg"; // Change this
 	public static final String REST_CALLBACK_URL = "oauth://cpsimpletweets"; // Change this (here and in manifest)
 
 	public TwitterClient(Context context) {
@@ -37,6 +41,15 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("count", 25);
 		params.put("since_id", 1);
 		getClient().get(apiUrl, params, handler);
+	}
+
+
+	public void postTweet(JsonHttpResponseHandler handler, String tweet) {
+
+		String apiUrl = getApiUrl("statuses/update.json");
+		RequestParams params = new RequestParams();
+		params.put("status", tweet);
+		getClient().post(apiUrl, params, handler);
 	}
 
 	// Compose Tweet
