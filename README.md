@@ -18,14 +18,24 @@ The following **required** functionality is completed:
   * [x] User can click a “Compose” icon in the Action Bar on the top right
   * [x] User can then enter a new tweet and post this to twitter
   * [x] User is taken back to home timeline with **new tweet visible** in timeline
+  * 
+  
+
+The following **required** functionality is completed:
+
+  * [x] UI polish
+
 
 ## Video Walkthrough
 
 
 Infinite Scroll
+
 <img src='http://i.imgur.com/Bflt2kp.gif' title='Infinite Scroll' width='250' alt='Infinite Scroll' />
 
+
 Tweet & Reload Timeline
+
 <img src='http://i.imgur.com/eRrXZ9y.gif' title='Tweet & Reload Timeline' width='250' alt='Tweet & Reload Timeline' />
 
 
