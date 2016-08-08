@@ -1,5 +1,6 @@
 package com.codepath.apps.mysimpletweets;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,10 +34,15 @@ public class ComposeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String newTweet = etNewTweet.getText().toString();
+
                 client.postTweet(new JsonHttpResponseHandler() {
                                      @Override
                                      public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                                         Log.d("DEBUG", json.toString());
+                                         Intent data = new Intent();
+                                         data.putExtra("code", 200); // ints work too
+                                         // Activity finished ok, return the data
+                                         setResult(RESULT_OK, data); // set result code and bundle data for response
+                                         finish();
                                      }
 
                                      @Override
@@ -45,6 +51,12 @@ public class ComposeActivity extends AppCompatActivity {
                                      }
                                  }
                         , newTweet);
+
+                Intent data = new Intent();
+                data.putExtra("code", 200); // ints work too
+                // Activity finished ok, return the data
+                setResult(RESULT_OK, data); // set result code and bundle data for response
+                finish();
             }
         });
     }

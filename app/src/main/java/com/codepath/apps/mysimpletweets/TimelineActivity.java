@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -25,6 +26,7 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    public long max_id;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,8 +37,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-      //  i.putExtra("book", Parcels.wrap(client));
-        startActivity(i);
+        startActivityForResult(i, 200);
         return super.onOptionsItemSelected(item);
     }
 
@@ -61,24 +62,32 @@ public class TimelineActivity extends AppCompatActivity {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
-                populateTimeline();
+                populateTimeline(page);
                 return true; // ONLY if more data is actually being loaded; false otherwise.
             }
         });
 
-        populateTimeline();
+        populateTimeline(-1);
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        max_id = 1;
+        tweets.clear();
+        aTweets.notifyDataSetChanged();
+        populateTimeline(1);
+    }
 
-    private void populateTimeline(){
-        client.getHomeTimeline(new JsonHttpResponseHandler(){
+    private void populateTimeline(int page){
+        client.getHomeTimeline(max_id, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("DEBUG", json.toString());
                 // ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
                 aTweets.addAll(Tweet.fromJSONArray(json));
                 Log.d("DEBUG", aTweets.toString());
+                max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
 
             }
 
