@@ -23,10 +23,10 @@ The following **required** functionality is completed:
 
 
 Infinite Scroll
-<img src='http://i.imgur.com/Bflt2kp.gifv' title='Infinite Scroll' width='' alt='Infinite Scroll' />
+<img src='http://i.imgur.com/Bflt2kp.gif' title='Infinite Scroll' width='' alt='Infinite Scroll' />
 
 Tweet & Reload Timeline
-<img src='http://i.imgur.com/eRrXZ9y.gifv' title='Tweet & Reload Timeline' width='' alt='Tweet & Reload Timeline' />
+<img src='http://i.imgur.com/eRrXZ9y.gif' title='Tweet & Reload Timeline' width='' alt='Tweet & Reload Timeline' />
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
