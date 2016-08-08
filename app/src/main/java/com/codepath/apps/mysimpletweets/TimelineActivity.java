@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.codepath.apps.mysimpletweets.fragments.TweetsListFragment;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -22,10 +23,9 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
+
+    private TweetsListFragment fragmentTweetsList;
     private TwitterClient client;
-    private ArrayList<Tweet> tweets;
-    private TweetsArrayAdapter aTweets;
-    private ListView lvTweets;
     public long max_id;
 
     @Override
@@ -49,33 +49,19 @@ public class TimelineActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         setSupportActionBar(toolbar);
-
-        lvTweets = (ListView) findViewById(R.id.lvTweets);
-        // Create array list
-        tweets = new ArrayList<>();
-        // Construct Adapter from data source
-        aTweets = new TweetsArrayAdapter(this, tweets);
-        lvTweets.setAdapter(aTweets);
-
         client = TwitterApplication.getRestClient();
-
-        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public boolean onLoadMore(int page, int totalItemsCount) {
-                populateTimeline(page);
-                return true; // ONLY if more data is actually being loaded; false otherwise.
-            }
-        });
-
         populateTimeline(-1);
-
+        if(savedInstanceState == null) {
+            // Access fragment
+            fragmentTweetsList = (TweetsListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         max_id = 1;
-        tweets.clear();
-        aTweets.notifyDataSetChanged();
+     //   tweets.clear();
+     //   aTweets.notifyDataSetChanged();
         populateTimeline(1);
     }
 
@@ -85,9 +71,9 @@ public class TimelineActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("DEBUG", json.toString());
                 // ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
-                aTweets.addAll(Tweet.fromJSONArray(json));
-                Log.d("DEBUG", aTweets.toString());
-                max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
+                fragmentTweetsList.addAll(Tweet.fromJSONArray(json));
+                Log.d("DEBUG", fragmentTweetsList.toString());
+            //    max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
 
             }
 
