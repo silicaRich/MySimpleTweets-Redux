@@ -21,7 +21,7 @@ The following **required** functionality is completed:
   * 
   
 
-The following **required** functionality is completed:
+The following **optional** functionality is completed:
 
   * [x] UI polish
 
@@ -31,12 +31,12 @@ The following **required** functionality is completed:
 
 Infinite Scroll
 
-<img src='http://i.imgur.com/Bflt2kp.gif' title='Infinite Scroll' width='250' alt='Infinite Scroll' />
+<img src='http://i.imgur.com/Bflt2kp.gif' title='Infinite Scroll' width='350' alt='Infinite Scroll' />
 
 
 Tweet & Reload Timeline
 
-<img src='http://i.imgur.com/eRrXZ9y.gif' title='Tweet & Reload Timeline' width='250' alt='Tweet & Reload Timeline' />
+<img src='http://i.imgur.com/eRrXZ9y.gif' title='Tweet & Reload Timeline' width='350' alt='Tweet & Reload Timeline' />
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
