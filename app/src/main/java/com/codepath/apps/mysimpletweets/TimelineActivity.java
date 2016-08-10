@@ -24,10 +24,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
 
-    private TweetsListFragment fragmentTweetsList;
-    private TwitterClient client;
-    public long max_id;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
@@ -49,40 +45,13 @@ public class TimelineActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         setSupportActionBar(toolbar);
-        client = TwitterApplication.getRestClient();
-        populateTimeline(-1);
-        if(savedInstanceState == null) {
-            // Access fragment
-            fragmentTweetsList = (TweetsListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        max_id = 1;
+       // max_id = 1;
      //   tweets.clear();
      //   aTweets.notifyDataSetChanged();
-        populateTimeline(1);
+     //   populateTimeline(1);
     }
-
-    private void populateTimeline(int page){
-        client.getHomeTimeline(max_id, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("DEBUG", json.toString());
-                // ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
-                fragmentTweetsList.addAll(Tweet.fromJSONArray(json));
-                Log.d("DEBUG", fragmentTweetsList.toString());
-            //    max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("DEBUG", errorResponse.toString());
-            }
-
-        });
-    }
-
 }
