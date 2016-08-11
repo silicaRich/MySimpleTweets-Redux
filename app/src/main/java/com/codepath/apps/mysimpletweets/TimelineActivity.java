@@ -71,6 +71,11 @@ public class TimelineActivity extends AppCompatActivity {
      //   populateTimeline(1);
     }
 
+    public void onProfileView(MenuItem mi){
+        // Launch profile View
+    }
+
+
     public class TweetsPagerAdapter extends FragmentPagerAdapter{
 
         private String tabTitles[] = {"Home", "Mentions"};
@@ -105,5 +110,9 @@ public class TimelineActivity extends AppCompatActivity {
             return tabTitles.length;
         }
     }
+
+
+
+
 
 }
