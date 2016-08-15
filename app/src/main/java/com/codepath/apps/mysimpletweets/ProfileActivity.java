@@ -1,9 +1,11 @@
 package com.codepath.apps.mysimpletweets;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import com.codepath.apps.mysimpletweets.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -29,18 +32,40 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         client = TwitterApplication.getRestClient();
-        client.getUserInfo(new JsonHttpResponseHandler() {
+
+        Intent intent = getIntent();
+        String screenName = intent.getStringExtra("screen_name");
+
+        // If we're trying to get a specific user's details
+        if(screenName != null){
+            client.getSpecificUserInfo(screenName, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    user = User.fromJSON(response);
+                    super.onSuccess(statusCode, headers, response);
+                    getSupportActionBar().setTitle("@" + user.getScreenName());
+                    populateProfileHeader(user);
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d("DEBUG", errorResponse.toString());
+                }
+
+            });
+        }
+        // Otherwise, we're getting the logged in user's info.
+        else
+            client.getUserInfo(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 user = User.fromJSON(response);
                 super.onSuccess(statusCode, headers, response);
                 getSupportActionBar().setTitle("@" + user.getScreenName());
                 populateProfileHeader(user);
-
             }
         });
 
-        String screenName = getIntent().getStringExtra("screen_name");
+
         if (savedInstanceState == null) {
             UserTimelineFragment fragmentUserTimeline = UserTimelineFragment.newInstance(screenName);
             // Display fragment dynamically
