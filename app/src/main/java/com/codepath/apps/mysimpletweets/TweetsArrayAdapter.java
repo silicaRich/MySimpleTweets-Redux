@@ -1,6 +1,7 @@
 package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,12 @@ import java.util.List;
 // Take Tweet objects and turn them into Views to be displayed in ListView
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
     Typeface helvetica;
+    private Context context;
+
 
     public TweetsArrayAdapter(Context context, List<Tweet> tweets){
         super(context, 0, tweets);
+        this.context = context;
         helvetica = Typeface.createFromAsset(context.getAssets(), "fonts/HelveticaNeue_Med.ttf");
 
     }
@@ -52,7 +56,20 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         tvName.setText(tweet.getUser().getName());
         tvFavouritesCount.setText(tweet.getFavouritesCount());
         ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recycled view
+        ivProfileImage.setTag(tweet.getUser().getScreenName());
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
+
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("screen_name", v.getTag().toString());
+                       context.startActivity(intent);
+            }
+        });
+
+
         // 5. Return the view to be inserted into the list
         return convertView;
     }
