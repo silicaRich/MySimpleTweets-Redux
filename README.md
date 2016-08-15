@@ -25,14 +25,26 @@ The following **optional** functionality is completed:
 ## Video Walkthrough
 
 
+Switch between Timeline and Mention
+
+<img src='http://i.imgur.com/AUsaWzR.gif' width='350' />
+
+
+Navigate to view own profile 
+
+<img src='http://i.imgur.com/RLvbJSD.gif' width='350' />
+
+
+Navigate to view a user profile 
+
+<img src='http://i.imgur.com/dQ6X1gq.gif' width='350' />
+
+
 Infinite Scroll
 
-<img src='http://i.imgur.com/Bflt2kp.gif' title='Infinite Scroll' width='350' alt='Infinite Scroll' />
-
-
-Tweet & Reload Timeline
-
-<img src='http://i.imgur.com/eRrXZ9y.gif' title='Tweet & Reload Timeline' width='350' alt='Tweet & Reload Timeline' />
+<img src='http://i.imgur.com/74cNL3G.gif 'width='350' />
+<img src='http://i.imgur.com/KYtyiBp.gif 'width='350' />
+<img src='http://i.imgur.com/74cNL3G.gif 'width='350' />
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
