@@ -39,21 +39,6 @@ public class UserTimelineFragment extends TweetsListFragment{
     private void populateTimeline(int page){
         String screenName = getArguments().getString("screen_name");
 
-        client.getSpecificUserInfo(screenName, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("DEBUG", json.toString());
-                // ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
-               // addAll(Tweet.fromJSONArray(json));
-                //    max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("DEBUG", errorResponse.toString());
-            }
-
-        });
-
         client.getUserTimeline(screenName, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
