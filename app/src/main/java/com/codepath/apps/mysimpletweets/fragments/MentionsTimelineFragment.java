@@ -11,6 +11,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -28,14 +30,15 @@ public class MentionsTimelineFragment extends TweetsListFragment {
         populateTimeline(-1);
     }
 
-    private void populateTimeline(int page){
+    @Override
+    public void populateTimeline(int page){
         client.getMentionsTimeline(max_id, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("DEBUG", json.toString());
-                // ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
+                ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
                 addAll(Tweet.fromJSONArray(json));
-                //    max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
+                max_id = aTweets.getItem(aTweets.getCount()-1).getUid();
 
             }
 
