@@ -29,15 +29,16 @@ public class UserTimelineFragment extends TweetsListFragment{
     }
 
         public static UserTimelineFragment newInstance(String screen_name) {
-            UserTimelineFragment fragmentDemo = new UserTimelineFragment();
+            UserTimelineFragment userFragment = new UserTimelineFragment();
             Bundle args = new Bundle();
             args.putString("screen_name", screen_name);
-            fragmentDemo.setArguments(args);
-            return fragmentDemo;
+            userFragment.setArguments(args);
+            return userFragment;
         }
 
     private void populateTimeline(int page){
-        client.getMentionsTimeline(max_id, new JsonHttpResponseHandler(){
+        String screenName = getArguments().getString("screen_name");
+        client.getUserTimeline(screenName, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("DEBUG", json.toString());

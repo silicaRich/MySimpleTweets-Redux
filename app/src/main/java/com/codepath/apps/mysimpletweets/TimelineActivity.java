@@ -72,6 +72,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void onProfileView(MenuItem mi){
+        Intent i = new Intent(TimelineActivity.this, ProfileActivity.class);
+        i.putExtra("screen_name", "silicarich");
+        startActivity(i);
         // Launch profile View
     }
 
